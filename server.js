@@ -9,7 +9,16 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+const allowedOrigins = process.env.CLIENT_ORIGINS ? process.env.CLIENT_ORIGINS.split(",") : [];
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error("Not allowed by CORS"));
+  },
+  credentials: true
+}));
 
 app.use("/auth", authRoutes);
 app.use("/api/todos", todoRoutes);
@@ -17,4 +26,4 @@ app.use("/api/todos", todoRoutes);
 connectDB(process.env.MONGO_URI);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(Server running on port ${PORT}));running on port ${PORT}`));
