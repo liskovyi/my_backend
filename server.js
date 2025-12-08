@@ -10,15 +10,7 @@ const app = express();
 
 app.use(express.json());
 
-const allowedOrigins = process.env.CLIENT_ORIGINS ? process.env.CLIENT_ORIGINS.split(",") : [];
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error("Not allowed by CORS"));
-  },
-  credentials: true
-}));
+app.use(cors());
 
 app.use("/auth", authRoutes);
 app.use("/api/todos", todoRoutes);
