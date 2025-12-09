@@ -26,4 +26,5 @@ app.use("/api/todos", todoRoutes);
 connectDB(process.env.MONGO_URI);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(Server running on port ${PORT}));running on port ${PORT}`));
+app.listen(PORT, () => console.log(Server running on port ${PORT}));
+
